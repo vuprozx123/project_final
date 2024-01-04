@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Expense Managment</title>
+    <link rel="stylesheet" href="./css/main.css">
+    <link rel="stylesheet" href="./css/base.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Pixelify+Sans&family=Roboto:wght@300;400;500;700&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+    <div class="web">
+        <div class="header">
+            <div class="header-container">
+                <img src="./z4972931007650_9aa7260250f1a8dd3a62dd0022ef52ff.jpg" alt="" class="header-container-logo">
+            </div>
+            <div class="header-container-label">
+                <i class="fa-solid fa-magnifying-glass  header-container-icon-search"></i>
+                <input type="text" class="header-container-search" id="header-search" placeholder="Tìm kiếm">
+            </div>
+            <ul class="header-container-navbar">
+                <li class="header-container-navbar-item">
+                    <i class="fa-regular fa-bell  header-container-navbar-item-notification"></i>
+                </li>
+                <li class="header-container-navbar-item">
+                    <i class="fa-regular fa-circle-question  header-container-navbar-item-help"></i>
+                </li>
+                <li id="abc" class="header-container-navbar-item  header-container-navbar-item-signup"
+                    onclick="toggleForms()">
+                    Đăng ký
+                </li>
+                <li id="abd" class="header-container-navbar-item   header-container-navbar-item-signin"
+                    onclick="toggleForm()">
+                    Đăng nhập
+                </li>
+            </ul>
+        </div>
+
+        <!-- menu -->
+        <div class="container">
+            <div class="category">
+                <i class="category-heading-icon fa-solid fa-list"></i>
+                <h3 class="category-heading" id="menu">
+                    Danh mục
+                </h3>
+                <ul class="category-list">
+                    <li class="category-list-item category-active">
+                        <i class="fa-solid fa-language  language-icon"></i>
+                        <a href="#" class="category-list-item-link" id="language" onclick="Language()">
+                            Ngôn ngữ
+                        </a>
+                        <ul class="category-list-item-active">
+                            <li class="category-list-item-active-language">
+                                <button class="category-button-language" onclick="changeLanguage('en')">English</button>
+                            </li>
+                            <li class="category-list-item-active-language">
+                                <button class="category-button-language"
+                                    onclick="changeLanguage('vi')">Vietnamese</button>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="category-list-item">
+                        <i class="fa-solid fa-money-check-dollar  money-icon"></i>
+                        <a href="#" class="category-list-item-link" id="bank" onclick="openChangeMoney()">
+                            Tiền tệ
+                        </a>
+                    </li>
+                    <li class="category-list-item">
+                        <i class="fa-solid fa-book diary-icon"></i>
+                        <a href="#" class="category-list-item-link" id="money" onclick="SpendMoney()">
+                            Nhật ký
+                        </a>
+                    </li>
+                    <li class="category-list-item">
+                        <i class="fa-solid fa-wallet  wallet-icon"></i>
+                        <a href="#" class="category-list-item-link" id="transaction" onclick="openAmount()">Biểu đồ
+                            tháng</a>
+                    </li>
+                    <li class="category-list-item">
+                        <i class="fa-solid fa-chart-simple  connect-icon"></i>
+                        <a href="#" class="category-list-item-link" id="event" onclick="openChart()">Biểu đồ năm</a>
+                    </li>
+                    <li class="category-list-item">
+                        <i class="fa-solid fa-file  introduce-icon"></i>
+                        <a href="#" class="category-list-item-link" id="recommend" onclick="openDeadline()">Dự án tài chính</a>
+                    </li>
+                    <li class="category-list-item">
+                        <i class="fa-solid fa-check  setting-icon"></i>
+                        <a href="#" class="category-list-item-link" id="setting" onclick="openKtra()">Kiểm tra tài chính</a>
+                    </li>
+                    <li class="category-list-item">
+                        <i class="fa-solid fa-film setting-icon"></i>
+                        <a href="#" class="category-list-item-link" id="setting" onclick="openMethod()">Phương Pháp đề xuất</a>
+                        <ul class="category-list-item-active-method">
+                            <li class="category-list-item-active-language-method">
+                                <button class="category-button-language-method" onclick="openHiw()">The Hiw</button>
+                            </li>
+                            <li class="category-list-item-active-language-method">
+                                <button class="category-button-language-method" onclick="openS()">SoulmateTry</button>
+                            </li>
+                            <li class="category-list-item-active-language-method">
+                                <button class="category-button-language-method" onclick="openSJ()">SIX Jars</button>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+
+
+
+            <!-- chuyen doi don vi tien -->
+            <div class="category-show">
+                <div id="converter">
+                    <input type="number" id="amount" placeholder="Nhập số tiền" />
+                    <div class="select-money">
+                        <select id="currency">
+                            <option value="vnd" id="VND">VND sang USD</option>
+                            <option value="usd" id="USD">USD sang VND</option>
+                        </select>
+                    </div>
+                    <div class="change-money-input">
+                        <button onclick="convertCurrency()" id="button-convert">Chuyển thành</button>
+                    </div>
+                    <div id="result"></div>
+                </div>
+
+
+
+                <!-- thu chi hang ngay -->
+                <div id="expenseForm">
+                    <label id="des" for="description">Mô tả</label>
+                    <input type="text" id="description" name="description">
+
+                    <label id="pay-money" for="amount">Số tiền chi tiêu</label>
+                    <input type="text" id="spend-money" name="amount">
+
+                    <label id="day-spend-money" for="date">Ngày chi tiêu</label>
+                    <input type="date" id="date" name="date">
+
+                    <button id="save-money" type="button" onclick="saveExpense()">Lưu chi tiêu</button>
+                </div>
+
+                <div id="expenseList"></div>
+
+
+
+
+                <!-- bieu do thu chia theo thang-->
+                <div id="expense-form">
+                    <label for="month" id="monthyear">Chọn tháng</label>
+                    <input type="month" id="month" onchange="updateChart()">
+
+                    <label for="amount" id="am-money">Giá tiền</label>
+                    <input type="number" id="a-money" placeholder="Nhập giá tiền" />
+
+                    <button onclick="addExpense()" id="add-expense">Thêm khoảng chi tiêu</button>
+
+                    <canvas id="myChart" width="500" height="300"></canvas>
+                </div>
+
+
+                <!-- user 8 -->
+                <div class="quan-ly">
+                    <h2>QUẢN LÝ CHI TIÊU</h2>
+            
+                    <label for="thu-nhap">Nhập số tiền thu nhập:</label>
+                    <input type="number" id="thu-nhap">
+            
+                    <br>
+            
+                    <label for="muc-gioi-han">Đặt mức giới hạn:</label>
+                    <input type="number" id="muc-gioi-han">
+            
+                    <br>
+            
+                    <label for="chi-tieu">Nhập số tiền chi tiêu:</label>
+                    <input type="number" id="chi-tieu">
+            
+                    <br>
+            
+                    <button onclick="kiemTraChiTieu()">Kiểm tra chi tiêu</button>
+            
+                    <p id="warning" class="alert"></p>
+                </div>
+                
+                <!-- user9 -->
+                <div id="project-form">
+                    <h2>Thông tin dự án</h2>
+                    <form id="project-info">
+                        <div>
+                            <label for="tenduan">Tên dự án</label>
+                            <input type="text" placeholder="Nhập tên dự án của bạn là gì ?" id="tenduan" name="tenduan">
+                        </div>
+                        <div>
+                            <label for="tienmatbang">Tiền mặt bằng</label>
+                            <input type="text" placeholder="Nhập số tiền/1 tháng ?" id="tienmatbang" name="tienmatbang">
+                        </div>
+                        <div>
+                            <label for="soluongnv">Số lượng nhân viên</label>
+                            <input type="text" placeholder="Nhập số người ?" id="soluongnv" name="soluongnv">
+                        </div>
+                        <div>
+                            <label for="tienluong">Tiền lương 1 nhân viên</label>
+                            <input type="text" placeholder="Nhập số tiền trung bình 1 người/1 tháng ?" id="tienluong"
+                                name="tienluong">
+                        </div>
+                        <div>
+                            <label for="tientrangthietbi">Tiền trang thiết bị</label>
+                            <input type="text" placeholder="Nhập số tiền ?" id="tientrangthietbi"
+                                name="tientrangthietbi">
+                        </div>
+                        <div>
+                            <label for="tiennguyenlieu">Tiền nguyên liệu trong 1 tháng</label>
+                            <input type="text" placeholder="Nhập số tiền ?" id="tiennguyenlieu" name="tiennguyenlieu">
+                        </div>
+                        <div>
+                            <label for="tienquangcao">Tiền chạy quảng cáo trong 1 tháng</label>
+                            <input type="text" placeholder="Nhập số tiền ?" id="tienquangcao" name="tienquangcao">
+                        </div>
+                        <div>
+                            <label for="tiendoanhthu">Tiền doanh thu dự kiến trong 1 tháng</label>
+                            <input type="text" placeholder="Nhập số tiền ?" id="tiendoanhthu" name="tiendoanhthu">
+                        </div>
+                        <div>
+                            <label for="thoigian">Thời gian kéo dài dự án</label>
+                            <select id="thoigian" name="thoigian">
+                                <option>Chọn số tháng</option>
+                                <option>3 tháng</option>
+                                <option>6 tháng</option>
+                                <option>9 tháng</option>
+                                <option>12 tháng</option>
+                                <option>15 tháng</option>
+                                <option>18 tháng</option>
+                                <option>24 tháng</option>
+                                <option>36 tháng</option>
+                                <option>48 tháng</option>
+                            </select>
+                        </div>
+                        <div>
+                            <button type="button" id="tinhtoan">Tính toán</button>
+                        </div>
+                    </form>
+
+                    <div id="ketqua">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Thuộc tính</th>
+                                    <th>Giá trị</th>
+                                </tr>
+                            </thead>
+                            <tbody id="ketqua-data">
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+
+
+                <!-- user7 -->
+                <div id="waterfall-chart">
+                    <div class="title-chart">
+                        Biểu đồ năm 2023
+                    </div>
+                    <div class="waterfall-chart-list">
+                        <div class="money-expense">
+                            <div class="money-expense-list">1000000</div>
+                            <div class="money-expense-list">800000</div>
+                            <div class="money-expense-list">600000</div>
+                            <div class="money-expense-list">400000</div>
+                            <div class="money-expense-list">200000</div>
+                            <div class="money-expense-list zero">0</div>
+                            <!-- <div class="money-expense-list">0</div>
+                            <div class="money-expense-list">0</div> -->
+                        </div>
+                        <div class="chart-container">
+                            <div class="bar"></div>
+                            <div class="bar"></div>
+                            <div class="bar"></div>
+                            <div class="bar"></div>
+                            <div class="bar"></div>
+                            <div class="bar"></div>
+                            <div class="bar"></div>
+                            <div class="bar"></div>
+                            <div class="bar"></div>
+                            <div class="bar"></div>
+                            <div class="bar"></div>
+                            <div class="bar"></div>
+                            <!-- Thêm các .bar khác tương tự cho các tháng tiếp theo -->
+                        </div>
+
+                        <div class="when">
+                            <div class="label first">Tháng 1</div>
+                            <div class="label second">Tháng 2</div>
+                            <div class="label">Tháng 3</div>
+                            <div class="label">Tháng 4</div>
+                            <div class="label">Tháng 5</div>
+                            <div class="label">Tháng 6</div>
+                            <div class="label">Tháng 7</div>
+                            <div class="label">Tháng 8</div>
+                            <div class="label">Tháng 9</div>
+                            <div class="label">Tháng 10</div>
+                            <div class="label">Tháng 11</div>
+                            <div class="label">Tháng 12</div>
+                        </div>
+                    </div>
+
+                    <div class="note">
+                        <div class="increase">Tăng</div>
+                        <div class="decrease">Giảm</div>
+                    </div>
+
+                </div>
+
+                <!-- user 10 -->
+                <div class="SIX-Jars">
+                    <img src="./413318469_222491207496394_3965487622810781934_n.png" alt="" class="sj">
+                </div>
+                <div class="soul-mate">
+                    <img src="./413120470_1097968414721544_1538252160703180404_n.png" alt="">
+                </div>
+                <div class="the-hiw">
+                    <img src="./413001591_936098574802031_7613092261602749070_n.png" alt="">
+                </div>
+
+
+
+                <!-- form  dang ky -->
+                <div id="register-model" class="model">
+                    <div class="model__overlay">
+                    </div>
+                    <div class="model__body">
+                        <div class="auth-forme">
+                            <div class="auth-formed__container">
+                                <div class="auth-form__formed">
+                                    <div class="auth-form__formed-group">
+                                        <input id="fullname" name="username" type="text"
+                                            class="auth-formed__form-group-input" placeholder="Họ và tên">
+                                        <span class="form-message"></span>
+                                    </div>
+                                    <div class="auth-form__formed-group">
+                                        <input id="email" type="text" name="email" class="auth-form__form-group-input"
+                                            placeholder="Email">
+                                        <span class="form-message"></span>
+                                    </div>
+                                    <div class="auth-form__formed-group">
+                                        <input id="password" type="password" name="password"
+                                            class="auth-form__form-group-input" placeholder="Mật khẩu">
+                                        <span class="form-message"></span>
+                                    </div>
+                                    <div class="auth-form__formed-group">
+                                        <input id="password-again" type="password" name="confirmation-passoword"
+                                            class="auth-form__form-group-input" placeholder="Nhập lại mật khẩu">
+                                    </div>
+                                    <div class="auth-formed__push">
+                                        <button id="abe" class="auth-form__push-button  auth-form__push-button-color"
+                                            onclick="register()">ĐĂNG
+                                            KÝ</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- form dang nhap -->
+                <div id="register-modal" class="modal">
+                    <div class="modal__overlay">
+                    </div>
+                    <div class="modal__body">
+                        <div class="auth-form">
+                            <div class="auth-form__container">
+                                <div class="auth-form__form">
+                                    <div class="auth-form__form-group">
+                                        <input id="inputname" type="text" class="auth-form__form-group-input"
+                                            placeholder="Tên đăng nhập">
+                                    </div>
+                                    <div class="auth-form__form-group">
+                                        <input id="inputpassword" type="text" class="auth-form__form-group-input"
+                                            placeholder="Mật Khẩu">
+                                    </div>
+                                </div>
+                                <div class="auth-form__push">
+                                    <button id="abf" class="auth-form__push-button  auth-form__push-button-color"
+                                        onclick="login()">ĐĂNG
+                                        NHẬP</button>
+                                </div>
+                                <div class="auth-form_forget">
+                                    <a id="abg" href="" class="auth-form_forgotton">
+                                        Quên mật khẩu
+                                    </a>
+                                </div>
+                                <div class="seperate"></div>
+                                <div class="auth-form_creat-account">
+                                    <button id="abh" class="created-account" onclick="toggleFormss()">Tạo tài
+                                        khoản</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ket noi vs file main.js -->
+                <script src="./js/main.js"></script>
+
+                <!-- form dang ki, dang nhap -->
+                <script>
+                    Validator({
+                        form: '#register-model',
+                        rules: [
+                            Validator.isRequired('#fullname', 'Tên là trường bắt buộc'),
+                            Validator.isEmail('#email'),
+                            Validator.minLength('#password', 8),
+                        ]
+                    })
+                </script>
+
+
+
+                <!-- link de co bieu do (chart) -->
+                <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+</body>
+
+</html>
